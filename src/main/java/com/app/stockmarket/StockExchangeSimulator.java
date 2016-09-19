@@ -12,6 +12,11 @@ import com.app.stockmarket.service.impl.StockDataSource;
 import com.app.stockmarket.service.impl.TradeService;
 import com.app.stockmarket.types.Currency;
 
+/**
+ * Test File to simulate the stock market - Buy/Sell
+ * @author sramanna
+ *
+ */
 public class StockExchangeSimulator {
 
 	public StockExchangeSimulator() {

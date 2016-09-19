@@ -8,3 +8,13 @@ a. For a given stock,
 
 b. Calculate the GBCE All Share Index using the geometric mean of prices for all stocks
 
+Requirement: 
+============
+
+You need to have a maven build to build the project
+
+How to run:
+==========
+1. Download the zip to a local directory 
+2. 
+
