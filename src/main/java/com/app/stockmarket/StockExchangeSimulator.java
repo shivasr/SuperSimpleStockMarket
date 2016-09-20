@@ -124,10 +124,10 @@ public class StockExchangeSimulator {
 			
 			if(buySellIndicator == BuySellIndicator.BUY) {
 				stockExchange.buyStock(setOfSymbols[stockIndex], 1, tradedPrice);
-				System.out.println("Bought " + setOfSymbols[stockIndex] + " Stock for " + stock.getCurrency() + " " +  tradedPrice + " - Step " + (i + 1) + " Time : "+ dt1.format(currTime));
+				System.out.println("Bought " + setOfSymbols[stockIndex] + " Stock for " + stock.getCurrency() + " " +  tradedPrice + " Time : "+ dt1.format(currTime));
 			} else {
 				stockExchange.sellStock(setOfSymbols[stockIndex], 1, tradedPrice);
-				System.out.println("Sold " + setOfSymbols[stockIndex] + " Stock for " + stock.getCurrency() + " " +  tradedPrice + " - Step " + (i + 1) + " Time : "+ dt1.format(currTime));
+				System.out.println("Sold " + setOfSymbols[stockIndex] + " Stock for " + stock.getCurrency() + " " +  tradedPrice  + " Time : "+ dt1.format(currTime));
 			}
 			
 			try {
