@@ -29,7 +29,7 @@ b. Calculate the GBCE All Share Index using the geometric mean of prices for all
 [Click to see the Class Illustration](https://drive.google.com/file/d/0BwuG_5pxYjcVdmRCX3J0MkpVb1k/view?usp=sharing)
 
 ## How to run:
-==========
+
 .1 Using Maven
 
 	1. Download the zip to a local directory 
