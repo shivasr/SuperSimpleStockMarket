@@ -30,13 +30,13 @@ b. Calculate the GBCE All Share Index using the geometric mean of prices for all
 
 ## How to run:
 
-Using Maven
+### Using Maven
 
 	1. Download the zip to a local directory 
 	2. With all maven settings run mvn clean install
 	3. Refer Test Classes to know how it will work	
 
-Using pre-built jar: This source code has pre-built using java version "1.8.0_101".
+### Using pre-built jar: This source code has pre-built using java version "1.8.0_101".
 	1. Download SuperSimpleStockMarket.jar to a location say C:\
 	2. with Java executables in PATH variable run the sample application using - "java -jar SuperSimpleStockMarket.jar". 
 	
