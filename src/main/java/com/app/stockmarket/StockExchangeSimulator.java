@@ -137,7 +137,7 @@ public class StockExchangeSimulator {
 		}
 		
 		
-		Logger.logDebugMessage("**************************** REPORT *****************************");
+		Logger.logDebugMessage("**************************** REPORT for " + stockSymbol +"*****************************");
 		Logger.logDebugMessage("Current Time is : " + dt1.format(new Date()));
 		Logger.logDebugMessage(String.format("Dividend Yield : %5.2f", stockExchange.calculateDividendYield(stockSymbol, 20)));
 		Logger.logDebugMessage(String.format("P/E Ratio : %5.2f",  stockExchange.priceOverDividendRatio(stockSymbol, 20)));
