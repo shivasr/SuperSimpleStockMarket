@@ -3,6 +3,7 @@
  */
 package com.app.stockmarket.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.app.stockmarket.domain.Stock;
@@ -47,6 +48,13 @@ public class TradeService implements ITradeService {
 		tradeTransaction.setTimestamp(timestamp);
 		tradeTransaction.setTradedPrice(tradedPrice);
 		stockDS.recordTradeTransation(tradeTransaction);
+		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		
+		if (buySellIndicator == BuySellIndicator.BUY) {
+			System.out.println("Bought " + stockSymbol + " Stock for $" +  tradedPrice + " Time : "+ dt1.format(timestamp));
+		} else {
+			System.out.println("Sold " + stockSymbol + " Stock for $" +  tradedPrice + " Time : "+ dt1.format(timestamp));
+		}
 		
 		return true;
 	}

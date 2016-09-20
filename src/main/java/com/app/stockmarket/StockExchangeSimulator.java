@@ -102,7 +102,6 @@ public class StockExchangeSimulator {
 		
 		for(int i = 0; i < 80; i++) {
 			final double random = Math.random();
-			final Date currTime = new Date();
 			
 			long randomPercentage = Math.round(random * 100);
 			
@@ -124,10 +123,8 @@ public class StockExchangeSimulator {
 			
 			if(buySellIndicator == BuySellIndicator.BUY) {
 				stockExchange.buyStock(setOfSymbols[stockIndex], 1, tradedPrice);
-				System.out.println("Bought " + setOfSymbols[stockIndex] + " Stock for " + stock.getCurrency() + " " +  tradedPrice + " Time : "+ dt1.format(currTime));
 			} else {
 				stockExchange.sellStock(setOfSymbols[stockIndex], 1, tradedPrice);
-				System.out.println("Sold " + setOfSymbols[stockIndex] + " Stock for " + stock.getCurrency() + " " +  tradedPrice  + " Time : "+ dt1.format(currTime));
 			}
 			
 			try {
