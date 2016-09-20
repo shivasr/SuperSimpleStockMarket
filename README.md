@@ -40,6 +40,8 @@ b. Calculate the GBCE All Share Index using the geometric mean of prices for all
 	1. Download SuperSimpleStockMarket.jar to a location say C:\
 	2. with Java executables in PATH variable run the sample application using - "java -jar SuperSimpleStockMarket.jar". 
 	
+	Note: If you wish to do the reporting for a particular stock pass in the parameter as 'java -jar SuperSimpleStockMarket.jar TEA'
+	
 	You much see output as below:
 	
 	**************************** Current Stock Summary *****************************

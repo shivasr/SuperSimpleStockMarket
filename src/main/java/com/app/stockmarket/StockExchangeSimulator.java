@@ -107,6 +107,8 @@ public class StockExchangeSimulator {
 		if (args.length > 0 &&  !args[0].isEmpty()) {
 			stockSymbol = args[0];
 		}
+		
+		Logger.logDebugMessage("Stock selected for monitoring is : " + stockSymbol);
 
 		double sumTradedPrice = 0.0;
 
