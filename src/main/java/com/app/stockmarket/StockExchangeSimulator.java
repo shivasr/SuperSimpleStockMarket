@@ -129,6 +129,7 @@ public class StockExchangeSimulator {
 			double tradedPrice = (randomPercentage * stock.getParValue()) / 100;
 			
 			if(tradedPrice <= 0.0){
+				System.out.println("tradedPrice < 0 ... Ignoring.");
 				continue;
 			}
 
@@ -156,6 +157,20 @@ public class StockExchangeSimulator {
 
 		Logger.logDebugMessage(
 				"**************************** REPORT for " + stockSymbol + "*****************************");
+		Logger.logDebugMessage("Current Time is : " + dt1.format(new Date()));
+		Logger.logDebugMessage(
+				String.format("Dividend Yield : %5.2f", stockExchange.calculateDividendYield(stockSymbol, 20)));
+		Logger.logDebugMessage(
+				String.format("P/E Ratio : %5.2f", stockExchange.priceOverDividendRatio(stockSymbol, 20)));
+		Logger.logDebugMessage(String.format("Volume Weighted Stock Price based on trades in past 15 minutes : %5.2f",
+				stockExchange.calculateVolumeWeightedStockPrice(stockSymbol, 15)));
+		Logger.logDebugMessage("GBCE All Share Index : " + stockExchange.calculateAllShareIndex());
+		Logger.logDebugMessage("*****************************************************************");
+		
+		stockSymbol = "GIN";
+		
+		Logger.logDebugMessage(
+				"**************************** REPORT for Preferred Stock " + stockSymbol + "*****************************");
 		Logger.logDebugMessage("Current Time is : " + dt1.format(new Date()));
 		Logger.logDebugMessage(
 				String.format("Dividend Yield : %5.2f", stockExchange.calculateDividendYield(stockSymbol, 20)));
