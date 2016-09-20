@@ -104,7 +104,6 @@ public abstract class AbstractStockAPI implements IStockAPI {
 		}
 
 		geometricMean = Math.pow(cumPrice, 1.0 / size);
-		geometricMean = Math.round(geometricMean);
 		
 		Logger.logDebugMessage("Geometric mean   = nth root of Cumulative Price");
 		Logger.logDebugMessage("                 = " + cumPrice + " ^  1.0 / " + size);

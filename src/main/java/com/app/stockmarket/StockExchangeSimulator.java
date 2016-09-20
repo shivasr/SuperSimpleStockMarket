@@ -37,7 +37,7 @@ public class StockExchangeSimulator {
 									.registerStockDataService(stockDS)
 									.registerTradeService(tradeService);
 		
-		
+		System.out.println("value : " + Math.pow(5093, 1.0 / 80));
 		Stock stock = new CommonStock();
 		stock.setSymbol("TEA");
 		stock.setLastDividend(0);
