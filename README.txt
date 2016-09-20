@@ -13,6 +13,23 @@ Requirement:
 
 You need to have a maven build to build the project
 
+Important Classes
+==================
+
+com.app.stockmarket.StockExchangeSimulator : Class containing main to run and execute the StockMarket API
+
+com.app.stockmarket.StockExchangeAPI : Interface to define operations on stock market to buy/sell stock, create new stock, calculate stock data
+
+com.app.stockmarket.AbstractStockExchange : An abstract implemnentation of StockExchangeAPI
+
+com.app.stockmarket.api.IStockAPI : Interface for calculative operations on stock
+
+com.app.stockmarket.api.CommonStockAPI: Implementation of IStockAPI on Common type of stocks
+
+com.app.stockmarket.api.PreferredStockAPI: Implementation of IStockAPI on Preferred type of stocks
+
+com.app.stockmarket.domain.TradeTransaction: Class to encapsulate Trade Transaction Record
+
 How to run:
 ==========
 .1 Using Maven
