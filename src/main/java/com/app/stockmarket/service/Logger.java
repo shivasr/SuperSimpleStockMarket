@@ -10,7 +10,7 @@ package com.app.stockmarket.service;
 public class Logger {
 	
 	public static void logDebugMessage(String message) {
-		Logger.logDebugMessage(message);
+		System.out.println(message);
 	}
 
 }
