@@ -2,7 +2,7 @@ package com.app.stockmarket;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.app.stockmarket.domain.CommonStock;
 import com.app.stockmarket.domain.FixedDividendStock;
@@ -44,18 +44,21 @@ public class StockExchangeSimulator {
 		stock.setCurrency(Currency.USD);
 		stockExchange.createStockInMarket(stock);
 		
+		stock = new CommonStock();
 		stock.setSymbol("POP");
 		stock.setParValue(100);
 		stock.setLastDividend(8);
 		stock.setCurrency(Currency.USD);
 		stockExchange.createStockInMarket(stock);
 		
+		stock = new CommonStock();
 		stock.setSymbol("ALE");
 		stock.setLastDividend(23);
 		stock.setParValue(60);
 		stock.setCurrency(Currency.USD);
 		stockExchange.createStockInMarket(stock);
 		
+		stock = new CommonStock();
 		stock.setSymbol("JOE");
 		stock.setLastDividend(13);
 		stock.setParValue(250);
@@ -72,6 +75,24 @@ public class StockExchangeSimulator {
 		stockExchange.createStockInMarket(stock1);
 		
 		System.out.println("Starting the simulator... " + " Done");
+		
+		System.out.println("\n\n");
+		System.out.println("**************************** Current Stock Summary *****************************");
+		List<Stock> stocks = stockExchange.listAllStocksInMarket();
+		for(Stock currStock : stocks) {
+			
+			if( currStock instanceof FixedDividendStock) {
+				FixedDividendStock fixedStock = (FixedDividendStock) currStock;
+				
+				System.out.println("\t" + fixedStock.getSymbol() + "\t" + String.format(" %-15s", fixedStock.getStockType()) + 
+							   "\t" + String.format(" %5d", (int) fixedStock.getLastDividend()) +"\t" + fixedStock.getFixedDividendPercentage() + " %\t" + String.format("%5d", (int) fixedStock.getParValue()));
+			} else {
+				System.out.println("\t" + currStock.getSymbol() + "\t" + String.format(" %-15s", currStock.getStockType()) + 
+						   "\t" + String.format("%5d", (int) currStock.getLastDividend()) + "\t\t" + String.format("%5d", (int) currStock.getParValue()));
+			}
+		}
+		System.out.println("********************************************************************************");
+		System.out.println("\n\n");
 		
 		SimpleDateFormat dt1 = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
 		
@@ -108,13 +129,12 @@ public class StockExchangeSimulator {
 			}
 		}
 		
-		
+		final String stockSymbol = "POP";
 		System.out.println("**************************** REPORT *****************************");
 		System.out.println("Current Time is : " + dt1.format(new Date()));
-		System.out.println("Dividend Yield : " + stockExchange.calculateDividendYield("GIN", 20));
-		System.out.println("P/E Ratio : " + stockExchange.priceOverDividendRatio("GIN", 20));
-		System.out.println("Volume Weighted Stock Price based on trades in past 15 minutes : " 
-						+ stockExchange.calculateVolumeWeightedStockPrice("GIN", 2));
+		System.out.println(String.format("Dividend Yield : %5.2f", stockExchange.calculateDividendYield(stockSymbol, 20)));
+		System.out.println(String.format("P/E Ratio : %5.2f",  stockExchange.priceOverDividendRatio(stockSymbol, 20)));
+		System.out.println(String.format("Volume Weighted Stock Price based on trades in past 15 minutes : %5.2f", stockExchange.calculateVolumeWeightedStockPrice(stockSymbol, 2)));
 		System.out.println("GBCE All Share Index : " + stockExchange.calculateAllShareIndex());
 		System.out.println("*****************************************************************");
 	}

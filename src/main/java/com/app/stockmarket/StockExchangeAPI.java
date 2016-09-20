@@ -82,14 +82,14 @@ public interface StockExchangeAPI {
 	 *  
 	 * @return stock symbols of all stock in the market
 	 */
-	public Set<String> listAllStockSymbols();
+	public List<String> listAllStockSymbols();
 	
 	/**
 	 * List of all Stocks in Market
 	 * 
 	 * @return List of Stocks
 	 */
-	public Set<Stock> listAllStocksInMarket();
+	public List<Stock> listAllStocksInMarket();
 	
 	/**
 	 * Calculate the GBCE All Share Index using the geometric mean of prices for all stocks

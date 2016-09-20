@@ -169,7 +169,7 @@ public abstract class AbstractStockExchange implements StockExchangeAPI {
 	}
 	
 	@Override
-	public Set<String> listAllStockSymbols() {
+	public List<String> listAllStockSymbols() {
 		if(stockDataService == null)
 			throw new UnsupportedOperationException("Trade Service is not configured");
 		
@@ -177,7 +177,7 @@ public abstract class AbstractStockExchange implements StockExchangeAPI {
 	}
 
 	@Override
-	public Set<Stock> listAllStocksInMarket() {
+	public List<Stock> listAllStocksInMarket() {
 		if(stockDataService == null)
 			throw new UnsupportedOperationException("Trade Service is not configured");
 		

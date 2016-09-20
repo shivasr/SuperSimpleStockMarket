@@ -22,7 +22,7 @@ import com.app.stockmarket.service.IStockDataService;
  *
  */
 public class StockDataSource implements IStockDataService {
-	
+
 	/**
 	 * List of stocks resembling table of Stocks
 	 */
@@ -32,7 +32,7 @@ public class StockDataSource implements IStockDataService {
 	 * Trade transactions of the stocks
 	 */
 	private LinkedList<TradeTransaction> tradeTransactions;
-	
+
 	/**
 	 * Constructor for Stock Data Source
 	 */
@@ -41,45 +41,69 @@ public class StockDataSource implements IStockDataService {
 		tradeTransactions = new LinkedList<TradeTransaction>();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.app.stockmarket.service.IStockDataService#listStockSymbols()
 	 */
 	@Override
-	public Set<String> listStockSymbols() {
-		return stocks.keySet();
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.app.stockmarket.service.IStockDataService#listStockSymbols()
-	 */
-	@Override
-	public Set<Stock> listAllStocks() {
-		
-		Set<Stock> allStocks = new HashSet<Stock>(stocks.values());
-		
+	public List<String> listStockSymbols() {
+		List<String> allStocks = new ArrayList<String>(stocks.values().size());
+
+		Iterator<String> stockIterator = stocks.keySet().iterator();
+
+		while (stockIterator.hasNext()) {
+			allStocks.add(stockIterator.next());
+		}
+
 		return allStocks;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.app.stockmarket.service.IStockDataService#saveStockData(com.app.stockmarket.domain.Stock)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.app.stockmarket.service.IStockDataService#listStockSymbols()
+	 */
+	@Override
+	public List<Stock> listAllStocks() {
+
+		List<Stock> allStocks = new ArrayList<Stock>();
+
+		Iterator<String> stockIterator = stocks.keySet().iterator();
+
+		while (stockIterator.hasNext()) {
+			allStocks.add(stocks.get(stockIterator.next()));
+		}
+
+		return allStocks;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.app.stockmarket.service.IStockDataService#saveStockData(com.app.
+	 * stockmarket.domain.Stock)
 	 */
 	@Override
 	public boolean saveStockData(Stock stock) throws InvalidStockException {
-		
+
 		stocks.put(stock.getSymbol(), stock);
-		
+
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.app.stockmarket.service.IStockDataService#getStockData(com.app.stockmarket.domain.Stock)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.app.stockmarket.service.IStockDataService#getStockData(com.app.
+	 * stockmarket.domain.Stock)
 	 */
 	@Override
 	public Stock getStockData(String stockSymbol) throws InvalidStockException {
-		
-		if(!stocks.containsKey(stockSymbol))
+
+		if (!stocks.containsKey(stockSymbol))
 			throw new InvalidStockException(InvalidStockException.ErrorCode.INVALID_STOCK_SYMBOL);
-		
+
 		return stocks.get(stockSymbol);
 	}
 
@@ -90,46 +114,46 @@ public class StockDataSource implements IStockDataService {
 		return true;
 	}
 
-	private void validate(TradeTransaction tradeTransaction)  throws InvalidStockException  {
-		if(!stocks.containsKey(tradeTransaction.getStockSymbol()))
+	private void validate(TradeTransaction tradeTransaction) throws InvalidStockException {
+		if (!stocks.containsKey(tradeTransaction.getStockSymbol()))
 			throw new InvalidStockException(InvalidStockException.ErrorCode.INVALID_STOCK_SYMBOL);
-		
-		if(tradeTransaction.getQuantity() <= 0)
+
+		if (tradeTransaction.getQuantity() <= 0)
 			throw new InvalidStockException(InvalidStockException.ErrorCode.INVALID_STOCK_QTY);
-		
-		if(tradeTransaction.getTradedPrice() <= 0.0)
+
+		if (tradeTransaction.getTradedPrice() <= 0.0)
 			throw new InvalidStockException(InvalidStockException.ErrorCode.INVALID_STOCK_PRICE);
-		
+
 		return;
-		
+
 	}
 
 	@Override
 	public List<TradeTransaction> getTransactionRecordsByDuration(String stockSymbol, Date currentTime, int minutes) {
-		List<TradeTransaction> transactionList = new ArrayList<TradeTransaction> ();
-		
+		List<TradeTransaction> transactionList = new ArrayList<TradeTransaction>();
+
 		Iterator<TradeTransaction> tradeIterator = tradeTransactions.descendingIterator();
-		
-		long cuttOffMilliSeconds = minutes * 60 *1000;
-		while(tradeIterator.hasNext()) {
+
+		long cuttOffMilliSeconds = minutes * 60 * 1000;
+		while (tradeIterator.hasNext()) {
 			TradeTransaction tradeTransaction = tradeIterator.next();
 			long diff = (currentTime.getTime() - tradeIterator.next().getTimestamp().getTime());
-			
-			if(diff <= cuttOffMilliSeconds && stockSymbol.equals(tradeTransaction.getStockSymbol())) {
+
+			if (diff <= cuttOffMilliSeconds && stockSymbol.equals(tradeTransaction.getStockSymbol())) {
 				transactionList.add(tradeTransaction);
 			}
 		}
-				
-		return transactionList;	
+
+		return transactionList;
 	}
 
 	@Override
 	public List<TradeTransaction> getAllTransactionRecords() {
-		
-		List<TradeTransaction> transactionList = new ArrayList<TradeTransaction> ();
-		
+
+		List<TradeTransaction> transactionList = new ArrayList<TradeTransaction>();
+
 		transactionList.addAll(tradeTransactions);
-		
+
 		return transactionList;
 	}
 }

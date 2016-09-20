@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -216,7 +216,7 @@ public class StockExchangeTest {
 	@Test
 	public void testListOfAllStockSymbols() {
 		
-		Set<String> listOfAllSymbols = stockExchange.listAllStockSymbols();
+		List<String> listOfAllSymbols = stockExchange.listAllStockSymbols();
 		
 		assertNotNull(listOfAllSymbols);
 		
@@ -229,7 +229,7 @@ public class StockExchangeTest {
 	@Test
 	public void testListOfAllStock() {
 		
-		Set<Stock> listOfAllStocks = stockExchange.listAllStocksInMarket();
+		List<Stock> listOfAllStocks = stockExchange.listAllStocksInMarket();
 		
 		assertNotNull(listOfAllStocks);
 		

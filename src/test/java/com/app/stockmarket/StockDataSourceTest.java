@@ -9,7 +9,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -59,7 +59,7 @@ public class StockDataSourceTest {
 	 */
 	@Test
 	public void testListStockSymbols() {
-		Set<String> stockSymbols = stockDataSource.listStockSymbols();
+		List<String> stockSymbols = stockDataSource.listStockSymbols();
 		
 		assertNotNull("List of Stock symbols empty.", stockSymbols);
 		

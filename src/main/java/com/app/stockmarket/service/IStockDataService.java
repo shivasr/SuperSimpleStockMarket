@@ -20,7 +20,7 @@ public interface IStockDataService {
 	 * 
 	 * @return List of symbols of all stocks in the market
 	 */
-	public Set<String> listStockSymbols();
+	public List<String> listStockSymbols();
 	
 	
 	/**
@@ -28,7 +28,7 @@ public interface IStockDataService {
 	 * 
 	 * @return List of all stocks in the market
 	 */
-	public Set<Stock> listAllStocks();
+	public List<Stock> listAllStocks();
 	
 	/**
 	 * Save Stock Data
