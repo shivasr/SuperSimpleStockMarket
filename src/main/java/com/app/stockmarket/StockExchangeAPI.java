@@ -3,10 +3,11 @@
  */
 package com.app.stockmarket;
 
+import java.util.List;
+import java.util.Set;
+
 import com.app.stockmarket.domain.Stock;
 import com.app.stockmarket.exception.InvalidStockException;
-import com.app.stockmarket.service.IStockDataService;
-import com.app.stockmarket.service.ITradeService;
 
 /**
  * Interface which defines
@@ -46,18 +47,6 @@ public interface StockExchangeAPI {
 	public boolean sellStock(String stockSymbol, int quantity, double price) throws InvalidStockException;
 	
 	/**
-	 * Register Trade Service Implementation
-	 * 
-	 * @param tradeService implementation of ITradeService interface
-	 */
-	public void registerTradeService(ITradeService tradeService);
-	
-	/**
-	 * @param stockDataService the stockDataService to set
-	 */
-	public void registerStockDataService(IStockDataService stockDataService);
-
-	/**
 	 * Calculate Dividend yield given price as input 
 	 *  
 	 * @param stockSymbol Symbol of the stock
@@ -88,6 +77,20 @@ public interface StockExchangeAPI {
 	 */
 	public double calculateVolumeWeightedStockPrice(String stockSymbol, int minutes) throws InvalidStockException;
 
+	/**
+	 * Set all stock symbols
+	 *  
+	 * @return stock symbols of all stock in the market
+	 */
+	public Set<String> listAllStockSymbols();
+	
+	/**
+	 * List of all Stocks in Market
+	 * 
+	 * @return List of Stocks
+	 */
+	public Set<Stock> listAllStocksInMarket();
+	
 	/**
 	 * Calculate the GBCE All Share Index using the geometric mean of prices for all stocks
 	 */

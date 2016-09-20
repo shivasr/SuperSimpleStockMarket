@@ -5,7 +5,9 @@ package com.app.stockmarket;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import com.app.stockmarket.api.IStockAPI;
 import com.app.stockmarket.api.StockAPIFactory;
@@ -119,21 +121,6 @@ public abstract class AbstractStockExchange implements StockExchangeAPI {
 		return stockAPI.volumeWeightedStockPriceByTime(stockSymbol, getConfiguredMinuntes());
 	}
 
-	/**
-	 * Calculate the GBCE All Share Index using the geometric mean of prices for all stocks
-	 * 
-	 * @param stockSymbol
-	 * @return
-	 */
-	public double calculateAllShareIndex() throws InvalidStockException  {
-		
-		if(stockDataService == null)
-			throw new UnsupportedOperationException("Trade Service is not configured");
-		
-		IStockAPI stockAPI = StockAPIFactory.generateStockAPI(StockType.COMMON, stockDataService);
-		
-		return stockAPI.calculateAllShareIndex();
-	}
 	
 	@Override
 	public double priceOverDividendRatio(String stockSymbol, double price) throws InvalidStockException {
@@ -166,19 +153,52 @@ public abstract class AbstractStockExchange implements StockExchangeAPI {
 	}
 	
 	/**
+	 * Calculate the GBCE All Share Index using the geometric mean of prices for all stocks
+	 * 
+	 * @param stockSymbol
+	 * @return
+	 */
+	public double calculateAllShareIndex() throws InvalidStockException  {
+		
+		if(stockDataService == null)
+			throw new UnsupportedOperationException("Trade Service is not configured");
+		
+		IStockAPI stockAPI = StockAPIFactory.generateStockAPI(StockType.COMMON, stockDataService);
+		
+		return stockAPI.calculateAllShareIndex();
+	}
+	
+	@Override
+	public Set<String> listAllStockSymbols() {
+		if(stockDataService == null)
+			throw new UnsupportedOperationException("Trade Service is not configured");
+		
+		return stockDataService.listStockSymbols();
+	}
+
+	@Override
+	public Set<Stock> listAllStocksInMarket() {
+		if(stockDataService == null)
+			throw new UnsupportedOperationException("Trade Service is not configured");
+		
+		return stockDataService.listAllStocks();
+	}
+	/**
 	 * Register Trade Service Implementation
 	 * 
 	 * @param tradeService implementation of ITradeService interface
 	 */
-	public void registerTradeService(ITradeService tradeService) {
+	public AbstractStockExchange registerTradeService(ITradeService tradeService) {
 		this.tradeService = tradeService;
+		return this;
 	}
 	
 	/**
 	 * @param stockDataService the stockDataService to set
 	 */
-	public void registerStockDataService(IStockDataService stockDataService) {
+	public AbstractStockExchange registerStockDataService(IStockDataService stockDataService) {
 		this.stockDataService = stockDataService;
+		return this;
 	}
 	
 	

@@ -22,6 +22,14 @@ public interface IStockDataService {
 	 */
 	public Set<String> listStockSymbols();
 	
+	
+	/**
+	 * List All stocks in the market
+	 * 
+	 * @return List of all stocks in the market
+	 */
+	public Set<Stock> listAllStocks();
+	
 	/**
 	 * Save Stock Data
 	 * 

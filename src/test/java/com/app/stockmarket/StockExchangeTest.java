@@ -3,14 +3,13 @@
  */
 package com.app.stockmarket;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -38,11 +37,12 @@ public class StockExchangeTest {
 	 */
 	@BeforeClass
 	public static void setUp() throws Exception {
-		stockExchange = new StockExchange("GBCE", "UK");
 		
 		IStockDataService stockDS = new StockDataSource();
-		stockExchange.registerStockDataService(stockDS);
-		stockExchange.registerTradeService(new TradeService(stockDS));
+		
+		stockExchange = new StockExchange("GBCE", "UK")
+				.registerStockDataService(stockDS)
+				.registerTradeService(new TradeService(stockDS));
 		
 		try {
 			Stock stock = new FixedDividendStock();
@@ -209,6 +209,33 @@ public class StockExchangeTest {
 			e.printStackTrace(System.out);
 			System.out.println("Message : " + e.getMessage());
 			assertNull(e.getMessage(), e);
+		}
+	}
+	
+	
+	@Test
+	public void testListOfAllStockSymbols() {
+		
+		Set<String> listOfAllSymbols = stockExchange.listAllStockSymbols();
+		
+		assertNotNull(listOfAllSymbols);
+		
+		System.out.println("List of all symbols :");
+		for(String symbol : listOfAllSymbols) {
+			System.out.println(symbol);
+		}
+	}
+	
+	@Test
+	public void testListOfAllStock() {
+		
+		Set<Stock> listOfAllStocks = stockExchange.listAllStocksInMarket();
+		
+		assertNotNull(listOfAllStocks);
+		
+		System.out.println("List of all stocks :");
+		for(Stock stock : listOfAllStocks) {
+			System.out.println(stock);
 		}
 	}
 

@@ -5,6 +5,7 @@ package com.app.stockmarket.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -46,6 +47,17 @@ public class StockDataSource implements IStockDataService {
 	@Override
 	public Set<String> listStockSymbols() {
 		return stocks.keySet();
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.app.stockmarket.service.IStockDataService#listStockSymbols()
+	 */
+	@Override
+	public Set<Stock> listAllStocks() {
+		
+		Set<Stock> allStocks = new HashSet<Stock>(stocks.values());
+		
+		return allStocks;
 	}
 
 	/* (non-Javadoc)
