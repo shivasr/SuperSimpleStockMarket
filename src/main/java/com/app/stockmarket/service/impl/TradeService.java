@@ -51,9 +51,9 @@ public class TradeService implements ITradeService {
 		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		
 		if (buySellIndicator == BuySellIndicator.BUY) {
-			System.out.println("Bought " + stockSymbol + " Stock for $" +  tradedPrice + " Time : "+ dt1.format(timestamp));
+			System.out.println("Bought " + stockSymbol + " Stock for $" +  tradedPrice + " at  "+ dt1.format(timestamp));
 		} else {
-			System.out.println("Sold " + stockSymbol + " Stock for $" +  tradedPrice + " Time : "+ dt1.format(timestamp));
+			System.out.println("Sold " + stockSymbol + " Stock for $" +  tradedPrice + " at "+ dt1.format(timestamp));
 		}
 		
 		return true;
