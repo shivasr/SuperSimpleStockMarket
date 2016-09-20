@@ -127,6 +127,10 @@ public class StockExchangeSimulator {
 			stock = stockDS.getStockData(setOfSymbols[stockIndex]);
 
 			double tradedPrice = (randomPercentage * stock.getParValue()) / 100;
+			
+			if(tradedPrice <= 0.0){
+				continue;
+			}
 
 			BuySellIndicator buySellIndicator = BuySellIndicator.values()[buyIndicatorIndex];
 
