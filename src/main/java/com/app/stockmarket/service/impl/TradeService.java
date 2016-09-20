@@ -52,9 +52,9 @@ public class TradeService implements ITradeService {
 		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		
 		if (buySellIndicator == BuySellIndicator.BUY) {
-			Logger.logDebugMessage("Bought " + stockSymbol + " Stock for $ " +  tradedPrice + " at  "+ dt1.format(timestamp));
+			Logger.logDebugMessage("Transaction completed for BUY " + stockSymbol + " Stock for $ " +  tradedPrice + " at  "+ dt1.format(timestamp));
 		} else {
-			Logger.logDebugMessage("Sold " + stockSymbol + " Stock for $ " +  tradedPrice + " at "+ dt1.format(timestamp));
+			Logger.logDebugMessage("Transaction completed for SELL " + stockSymbol + " Stock for $ " +  tradedPrice + " at "+ dt1.format(timestamp));
 		}
 		
 		return true;

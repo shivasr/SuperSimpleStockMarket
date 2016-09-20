@@ -29,6 +29,8 @@ public class StockExchangeSimulator {
 	}
 
 	static String[] setOfSymbols = new String[] { "TEA", "POP", "ALE", "GIN", "JOE" };
+	
+	static int[] percentageDiff = new int[] { -10, -5, -3, -2, -1, 0, 1, 2, 3, 5, 10 };
 
 	public static void main(String[] args) throws InvalidStockException {
 		IStockDataService stockDS = new StockDataSource();
@@ -37,7 +39,6 @@ public class StockExchangeSimulator {
 		StockExchangeAPI stockExchange = new StockExchange("GBCE", "UK").registerStockDataService(stockDS)
 				.registerTradeService(tradeService);
 
-		System.out.println("value : " + Math.pow(5093, 1.0 / 80));
 		Stock stock = new CommonStock();
 		stock.setSymbol("TEA");
 		stock.setLastDividend(0);
@@ -123,30 +124,29 @@ public class StockExchangeSimulator {
 			int stockIndex = index % setOfSymbols.length;
 
 			int buyIndicatorIndex = index % BuySellIndicator.values().length;
-
+			
+			int priceChangeIndex = index % percentageDiff.length;
+			
 			stock = stockDS.getStockData(setOfSymbols[stockIndex]);
 
-			double tradedPrice = (randomPercentage * stock.getParValue()) / 100;
+			double tradedPrice = stock.getParValue() + (stock.getParValue() * percentageDiff[priceChangeIndex] / 100);
 			
-			if(tradedPrice <= 0.0){
-				System.out.println("tradedPrice < 0 ... Ignoring.");
-				continue;
-			}
-
 			BuySellIndicator buySellIndicator = BuySellIndicator.values()[buyIndicatorIndex];
 
 			if (i >= 20 && stockSymbol.equals(setOfSymbols[stockIndex])) {
-				Logger.logDebugMessage(setOfSymbols[stockIndex] + " tradedPrice: " + tradedPrice + " " + " ( "
-						+ sumTradedPrice + ") ");
 				sumTradedPrice += tradedPrice;
+				Logger.logDebugMessage(setOfSymbols[stockIndex] + " tradedPrice: " + tradedPrice + "() " + " ( "
+						+ sumTradedPrice + ") ");
 			}
 
 			if (buySellIndicator == BuySellIndicator.BUY) {
+				Logger.logDebugMessage("Purchase request raised for " + setOfSymbols[stockIndex] + " for $" + tradedPrice + "(" + percentageDiff[priceChangeIndex] + "% change)");
 				stockExchange.buyStock(setOfSymbols[stockIndex], 1, tradedPrice);
 			} else {
+				Logger.logDebugMessage("Sell request raised for " + setOfSymbols[stockIndex] + " for $" + tradedPrice + "(" + percentageDiff[priceChangeIndex] + "% change)");
 				stockExchange.sellStock(setOfSymbols[stockIndex], 1, tradedPrice);
 			}
-
+			Logger.logDebugMessage("----------------------------------------------------------------------------");
 			try {
 				Thread.sleep(15000);
 			} catch (InterruptedException e) {
