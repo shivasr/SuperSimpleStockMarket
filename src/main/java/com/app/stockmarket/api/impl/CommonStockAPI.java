@@ -6,6 +6,7 @@ package com.app.stockmarket.api.impl;
 import com.app.stockmarket.domain.Stock;
 import com.app.stockmarket.exception.InvalidStockException;
 import com.app.stockmarket.service.IStockDataService;
+import com.app.stockmarket.service.Logger;
 
 /**
  * @author sramanna
@@ -26,11 +27,12 @@ public class CommonStockAPI extends AbstractStockAPI {
 		
 		double dividendYield = 0.0;
 
-		System.out.println("dividendYield  =" + stock.getLastDividend() + "/" + price);
+		Logger.logDebugMessage("dividendYield  =" + stock.getLastDividend() + "/" + price);
 		if (price != 0.0) {
 			dividendYield = stock.getLastDividend() / price;
 		}
 		
+		Logger.logDebugMessage("               =" + dividendYield + "\n");
 		return dividendYield;
 	}
 

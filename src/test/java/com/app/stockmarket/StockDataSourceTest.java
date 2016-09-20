@@ -20,6 +20,7 @@ import com.app.stockmarket.domain.Stock;
 import com.app.stockmarket.domain.TradeTransaction;
 import com.app.stockmarket.exception.InvalidStockException;
 import com.app.stockmarket.service.ITradeService.BuySellIndicator;
+import com.app.stockmarket.service.Logger;
 import com.app.stockmarket.service.impl.StockDataSource;
 import com.app.stockmarket.types.Currency;
 
@@ -49,7 +50,7 @@ public class StockDataSourceTest {
 			stockDataSource.saveStockData(stock);
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
 	}
@@ -105,7 +106,7 @@ public class StockDataSourceTest {
 			
 			
 		} catch (InvalidStockException e) {
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
 	}
@@ -127,7 +128,7 @@ public class StockDataSourceTest {
 			
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
 		
@@ -166,7 +167,7 @@ public class StockDataSourceTest {
 			stockDataSource.recordTradeTransation(tradeTransaction);
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
 	}

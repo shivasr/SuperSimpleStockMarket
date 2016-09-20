@@ -12,6 +12,7 @@ import com.app.stockmarket.domain.Stock;
 import com.app.stockmarket.domain.TradeTransaction;
 import com.app.stockmarket.exception.InvalidStockException;
 import com.app.stockmarket.service.IStockDataService;
+import com.app.stockmarket.service.Logger;
 
 /**
  * @author sramanna
@@ -34,10 +35,14 @@ public abstract class AbstractStockAPI implements IStockAPI {
 
 		double dividend = stock.getLastDividend();
 
-		System.out.println("P/E   =" + price + "/" + dividend);
+		Logger.logDebugMessage("P/E   = Stock Price / Dividend ");
+		Logger.logDebugMessage("      = " + price + "/" + dividend);
 		
 		if (price != 0.0) {
-			return price / dividend;
+			
+			final double pbyE = price / dividend;
+			Logger.logDebugMessage("      = " + pbyE + "\n");
+			return pbyE;
 		}
 
 		return 0;
@@ -51,7 +56,7 @@ public abstract class AbstractStockAPI implements IStockAPI {
 		Date currTime = new Date();
 		
 		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-		System.out.println("Current Time is : " + dt1.format(new Date()));
+		Logger.logDebugMessage("Current Time is : " + dt1.format(new Date()));
 		
 		List<TradeTransaction> records = stockDataService.getTransactionRecordsByDuration(stockSymbol, currTime,
 				minutes);
@@ -70,10 +75,11 @@ public abstract class AbstractStockAPI implements IStockAPI {
 
 		}
 
-		System.out.println("Volume Weighted Stock Price   = Cumulative Price in last 15 min / Sum Od Qty ");
-		System.out.println("                              = "+ cumPrice + " / " + totalQty);
+		Logger.logDebugMessage("Volume Weighted Stock Price   = Cumulative Price in last 15 min / Sum Od Qty ");
+		Logger.logDebugMessage("                              = "+ cumPrice + " / " + totalQty);
 		if (totalQty != 0) {
 			volumeWeightedStockPrice = cumPrice / totalQty;
+			Logger.logDebugMessage("                              = " + volumeWeightedStockPrice + "\n");
 		}
 		return volumeWeightedStockPrice;
 	}
@@ -100,9 +106,9 @@ public abstract class AbstractStockAPI implements IStockAPI {
 		geometricMean = Math.pow(cumPrice, 1.0 / size);
 		geometricMean = Math.round(geometricMean);
 		
-		System.out.println("Geometric mean   = nth root of Cumulative Price");
-		System.out.println("                 = "+ cumPrice + "^  1.0 / " + size);
-		
+		Logger.logDebugMessage("Geometric mean   = nth root of Cumulative Price");
+		Logger.logDebugMessage("                 = " + cumPrice + " ^  1.0 / " + size);
+		Logger.logDebugMessage("                 = " + geometricMean + "\n");
 		return geometricMean;
 
 	}

@@ -18,6 +18,7 @@ import com.app.stockmarket.domain.FixedDividendStock;
 import com.app.stockmarket.domain.Stock;
 import com.app.stockmarket.exception.InvalidStockException;
 import com.app.stockmarket.service.IStockDataService;
+import com.app.stockmarket.service.Logger;
 import com.app.stockmarket.service.impl.StockDataSource;
 import com.app.stockmarket.service.impl.TradeService;
 import com.app.stockmarket.types.Currency;
@@ -52,7 +53,7 @@ public class StockExchangeTest {
 			stockExchange.createStockInMarket(stock);
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
 		
@@ -98,7 +99,7 @@ public class StockExchangeTest {
 			stockExchange.createStockInMarket(stock);
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
 	}
@@ -113,13 +114,13 @@ public class StockExchangeTest {
 			for(int i = 0; i < 6; i++) {
 				Date  currTime = new Date();
 				stockExchange.buyStock("GIN", 1, 10.00);
-				System.out.println("Bought GIN Stock - Step " + (i + 1) + " Time : "+ dt1.format(currTime));
+				Logger.logDebugMessage("Bought GIN Stock - Step " + (i + 1) + " Time : "+ dt1.format(currTime));
 			}
 			
 			
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
 	}
@@ -134,9 +135,9 @@ public class StockExchangeTest {
 			
 			try {
 				stockExchange.sellStock("GIN", 1, 10.00);
-				System.out.println("Sold GIN Stock - Step " + (i + 1) + " Time : "+ dt1.format(currTime));
+				Logger.logDebugMessage("Sold GIN Stock - Step " + (i + 1) + " Time : "+ dt1.format(currTime));
 			} catch (InvalidStockException e) {
-				System.out.println("Message : " + e.getMessage());
+				Logger.logDebugMessage("Message : " + e.getMessage());
 				assertNull(e.getErrorCode().toString(), e);
 			}
 		}
@@ -151,7 +152,7 @@ public class StockExchangeTest {
 			assertNotNull(stockExchange.calculateDividendYield("GIN", 20));
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getMessage(), e);
 		}
 	}
@@ -165,7 +166,7 @@ public class StockExchangeTest {
 			assertNotNull(stockExchange.calculateVolumeWeightedStockPrice("GIN", 2));
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getMessage(), e);
 		}
 	}
@@ -179,7 +180,7 @@ public class StockExchangeTest {
 			assertNotNull(stockExchange.calculateAllShareIndex());
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getMessage(), e);
 		}
 	}
@@ -193,7 +194,7 @@ public class StockExchangeTest {
 			assertNotNull(stockExchange.priceOverDividendRatio("GIN", 10));
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getMessage(), e);
 		}
 	}
@@ -207,7 +208,7 @@ public class StockExchangeTest {
 			assertNotNull(stockExchange.calculateVolumeWeightedStockPrice("GIN", 2));
 		} catch (InvalidStockException e) {
 			e.printStackTrace(System.out);
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getMessage(), e);
 		}
 	}
@@ -220,9 +221,9 @@ public class StockExchangeTest {
 		
 		assertNotNull(listOfAllSymbols);
 		
-		System.out.println("List of all symbols :");
+		Logger.logDebugMessage("List of all symbols :");
 		for(String symbol : listOfAllSymbols) {
-			System.out.println(symbol);
+			Logger.logDebugMessage(symbol);
 		}
 	}
 	
@@ -233,9 +234,9 @@ public class StockExchangeTest {
 		
 		assertNotNull(listOfAllStocks);
 		
-		System.out.println("List of all stocks :");
+		Logger.logDebugMessage("List of all stocks :");
 		for(Stock stock : listOfAllStocks) {
-			System.out.println(stock);
+			Logger.logDebugMessage(stock.toString());
 		}
 	}
 

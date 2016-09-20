@@ -11,6 +11,7 @@ import com.app.stockmarket.exception.InvalidStockException;
 import com.app.stockmarket.service.IStockDataService;
 import com.app.stockmarket.service.ITradeService;
 import com.app.stockmarket.service.ITradeService.BuySellIndicator;
+import com.app.stockmarket.service.Logger;
 import com.app.stockmarket.service.impl.StockDataSource;
 import com.app.stockmarket.service.impl.TradeService;
 import com.app.stockmarket.types.Currency;
@@ -74,26 +75,26 @@ public class StockExchangeSimulator {
 		stock1.setFixedDividendPercentage(2);
 		stockExchange.createStockInMarket(stock1);
 		
-		System.out.println("Starting the simulator... " + " Done");
+		Logger.logDebugMessage("Starting the simulator... " + " Done");
 		
-		System.out.println("\n\n");
-		System.out.println("**************************** Current Stock Summary *****************************");
+		Logger.logDebugMessage("\n\n");
+		Logger.logDebugMessage("**************************** Current Stock Summary *****************************");
 		List<Stock> stocks = stockExchange.listAllStocksInMarket();
 		for(Stock currStock : stocks) {
 			
 			if( currStock instanceof FixedDividendStock) {
 				FixedDividendStock fixedStock = (FixedDividendStock) currStock;
 				
-				System.out.println("\t" + fixedStock.getSymbol() + "\t" + String.format(" %-15s", fixedStock.getStockType()) + 
+				Logger.logDebugMessage("\t" + fixedStock.getSymbol() + "\t" + String.format(" %-15s", fixedStock.getStockType()) + 
 							   "\t" + String.format(" %5d", (int) fixedStock.getLastDividend()) +"\t" + fixedStock.getFixedDividendPercentage() + " %\t" + String.format("%5d", (int) fixedStock.getParValue()));
 			} else {
-				System.out.println("\t" + currStock.getSymbol() + "\t" + String.format(" %-15s", currStock.getStockType()) + 
+				Logger.logDebugMessage("\t" + currStock.getSymbol() + "\t" + String.format(" %-15s", currStock.getStockType()) + 
 						   "\t" + String.format("%5d", (int) currStock.getLastDividend()) + "\t\t" + String.format("%5d", (int) currStock.getParValue()));
 			}
 		}
-		System.out.println("********************************************************************************");
-		System.out.println("\n");
-		System.out.println("**************************** Transactions **************************************");
+		Logger.logDebugMessage("********************************************************************************");
+		Logger.logDebugMessage("\n");
+		Logger.logDebugMessage("**************************** Transactions **************************************");
 		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		
 		final String stockSymbol = "POP";
@@ -117,7 +118,7 @@ public class StockExchangeSimulator {
 			BuySellIndicator buySellIndicator = BuySellIndicator.values()[buyIndicatorIndex];
 			
 			if(i >= 20 && stockSymbol.equals(setOfSymbols[stockIndex])) {
-				System.out.println(setOfSymbols[stockIndex]  + " tradedPrice: "+  tradedPrice + " " + " ( " + sumTradedPrice + ") ");
+				Logger.logDebugMessage(setOfSymbols[stockIndex]  + " tradedPrice: "+  tradedPrice + " " + " ( " + sumTradedPrice + ") ");
 				sumTradedPrice += tradedPrice;
 			}
 			
@@ -136,13 +137,13 @@ public class StockExchangeSimulator {
 		}
 		
 		
-		System.out.println("**************************** REPORT *****************************");
-		System.out.println("Current Time is : " + dt1.format(new Date()));
-		System.out.println(String.format("Dividend Yield : %5.2f", stockExchange.calculateDividendYield(stockSymbol, 20)));
-		System.out.println(String.format("P/E Ratio : %5.2f",  stockExchange.priceOverDividendRatio(stockSymbol, 20)));
-		System.out.println(String.format("Volume Weighted Stock Price based on trades in past 15 minutes : %5.2f", stockExchange.calculateVolumeWeightedStockPrice(stockSymbol, 15)));
-		System.out.println("GBCE All Share Index : " + stockExchange.calculateAllShareIndex());
-		System.out.println("*****************************************************************");
+		Logger.logDebugMessage("**************************** REPORT *****************************");
+		Logger.logDebugMessage("Current Time is : " + dt1.format(new Date()));
+		Logger.logDebugMessage(String.format("Dividend Yield : %5.2f", stockExchange.calculateDividendYield(stockSymbol, 20)));
+		Logger.logDebugMessage(String.format("P/E Ratio : %5.2f",  stockExchange.priceOverDividendRatio(stockSymbol, 20)));
+		Logger.logDebugMessage(String.format("Volume Weighted Stock Price based on trades in past 15 minutes : %5.2f", stockExchange.calculateVolumeWeightedStockPrice(stockSymbol, 15)));
+		Logger.logDebugMessage("GBCE All Share Index : " + stockExchange.calculateAllShareIndex());
+		Logger.logDebugMessage("*****************************************************************");
 	}
 
 }

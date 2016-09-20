@@ -11,6 +11,7 @@ import com.app.stockmarket.domain.TradeTransaction;
 import com.app.stockmarket.exception.InvalidStockException;
 import com.app.stockmarket.service.IStockDataService;
 import com.app.stockmarket.service.ITradeService;
+import com.app.stockmarket.service.Logger;
 import com.app.stockmarket.service.ITradeService.BuySellIndicator;
 
 /**
@@ -51,9 +52,9 @@ public class TradeService implements ITradeService {
 		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		
 		if (buySellIndicator == BuySellIndicator.BUY) {
-			System.out.println("Bought " + stockSymbol + " Stock for $" +  tradedPrice + " at  "+ dt1.format(timestamp));
+			Logger.logDebugMessage("Bought " + stockSymbol + " Stock for $ " +  tradedPrice + " at  "+ dt1.format(timestamp));
 		} else {
-			System.out.println("Sold " + stockSymbol + " Stock for $" +  tradedPrice + " at "+ dt1.format(timestamp));
+			Logger.logDebugMessage("Sold " + stockSymbol + " Stock for $ " +  tradedPrice + " at "+ dt1.format(timestamp));
 		}
 		
 		return true;

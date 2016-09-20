@@ -14,9 +14,9 @@ import org.junit.Test;
 import com.app.stockmarket.domain.CommonStock;
 import com.app.stockmarket.domain.FixedDividendStock;
 import com.app.stockmarket.domain.Stock;
-import com.app.stockmarket.domain.TradeTransaction;
 import com.app.stockmarket.exception.InvalidStockException;
 import com.app.stockmarket.service.ITradeService.BuySellIndicator;
+import com.app.stockmarket.service.Logger;
 import com.app.stockmarket.service.impl.StockDataSource;
 import com.app.stockmarket.service.impl.TradeService;
 import com.app.stockmarket.types.Currency;
@@ -70,7 +70,7 @@ public class TradeServiceTest {
 			tradeService = new TradeService(stockDataSource);
 		
 		} catch (InvalidStockException e) {
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
 	}
@@ -87,7 +87,7 @@ public class TradeServiceTest {
 			stock.setCurrency(Currency.USD);
 			assertTrue(tradeService.createStockInMarket(stock));
 		} catch (InvalidStockException e) {
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
 	}
@@ -100,7 +100,7 @@ public class TradeServiceTest {
 		try {
 			assertTrue(tradeService.tradeStockInMarket("TEA", 1, BuySellIndicator.BUY, 10.00, new Date()));
 		} catch (InvalidStockException e) {
-			System.out.println("Message : " + e.getMessage());
+			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
 	}
