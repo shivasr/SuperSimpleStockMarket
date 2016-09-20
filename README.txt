@@ -15,6 +15,47 @@ You need to have a maven build to build the project
 
 How to run:
 ==========
-1. Download the zip to a local directory 
-2. 
+.1 Using Maven
+
+	1. Download the zip to a local directory 
+	2. With all maven settings run mvn clean install
+	3. Refer Test Classes to know how it will work	
+
+2. Using pre-built jar: This source code has pre-built using java version "1.8.0_101".
+	1. Download SuperSimpleStockMarket.jar to a location say C:\
+	2. with Java executables in PATH variable run the sample application using - "java -jar SuperSimpleStockMarket.jar". You much see output as below:
+	
+	**************************** Current Stock Summary *****************************
+        TEA      COMMON                     0             100
+        POP      COMMON                     8             100
+        ALE      COMMON                    23              60
+        JOE      COMMON                    23             250
+        GIN      PREFERRED                   8  2 %       100
+	********************************************************************************
+	
+	
+	**************************** Transactions **************************************
+	Bought JOE Stock for $ 117.5 at  20-09-2016 01:04:20
+	Bought POP Stock for $ 69.0 at  20-09-2016 01:04:35
+	Bought ALE Stock for $ 13.8 at  20-09-2016 01:04:50
+	Bought GIN Stock for $ 82.0 at  20-09-2016 01:05:05
+	Sold JOE Stock for $ 225.0 at 20-09-2016 01:05:20
+	Bought TEA Stock for $ 9.0 at  20-09-2016 01:05:35
+	Sold ALE Stock for $ 42.6 at 20-09-2016 01:05:50
+	Sold ALE Stock for $ 46.8 at 20-09-2016 01:06:05
+	Sold POP Stock for $ 18.0 at 20-09-2016 01:06:20
+	Bought TEA Stock for $ 3.0 at  20-09-2016 01:06:35
+	Sold GIN Stock for $ 36.0 at 20-09-2016 01:06:50
+	Sold JOE Stock for $ 242.5 at 20-09-2016 01:07:05
+	Bought POP Stock for $ 69.0 at  20-09-2016 01:07:20
+	Bought TEA Stock for $ 3.0 at  20-09-2016 01:07:35
+	Bought JOE Stock for $ 115.0 at  20-09-2016 01:07:50
+	Sold GIN Stock for $ 38.0 at 20-09-2016 01:08:05
+	Bought POP Stock for $ 63.0 at  20-09-2016 01:08:20
+	.
+	.
+	.
+
+
+
 
