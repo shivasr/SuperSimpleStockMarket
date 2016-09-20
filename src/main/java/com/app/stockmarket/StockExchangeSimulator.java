@@ -97,18 +97,20 @@ public class StockExchangeSimulator {
 								+ String.format("%5d", (int) currStock.getParValue()));
 			}
 		}
-		Logger.logDebugMessage("********************************************************************************");
-		Logger.logDebugMessage("\n");
-		Logger.logDebugMessage("**************************** Transactions **************************************");
-		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-
+		
 		String stockSymbol = "POP";
 
 		if (args.length > 0 &&  !args[0].isEmpty()) {
 			stockSymbol = args[0];
 		}
 		
+		Logger.logDebugMessage("********************************************************************************");
+		Logger.logDebugMessage("\n");
 		Logger.logDebugMessage("Stock selected for monitoring is : " + stockSymbol);
+		Logger.logDebugMessage("\n");
+		Logger.logDebugMessage("**************************** Transactions **************************************");
+		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+
 
 		double sumTradedPrice = 0.0;
 
