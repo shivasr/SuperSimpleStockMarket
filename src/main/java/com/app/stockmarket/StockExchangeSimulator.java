@@ -92,11 +92,15 @@ public class StockExchangeSimulator {
 			}
 		}
 		System.out.println("********************************************************************************");
-		System.out.println("\n\n");
+		System.out.println("\n");
+		System.out.println("**************************** Transactions **************************************");
+		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		
-		SimpleDateFormat dt1 = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+		final String stockSymbol = "POP";
 		
-		for(int i = 0; i < 12; i++) {
+		double sumTradedPrice = 0.0;
+		
+		for(int i = 0; i < 80; i++) {
 			final double random = Math.random();
 			final Date currTime = new Date();
 			
@@ -112,6 +116,11 @@ public class StockExchangeSimulator {
 			double tradedPrice =  (randomPercentage * stock.getParValue()) / 100;
 
 			BuySellIndicator buySellIndicator = BuySellIndicator.values()[buyIndicatorIndex];
+			
+			if(i >= 20 && stockSymbol.equals(setOfSymbols[stockIndex])) {
+				System.out.println(setOfSymbols[stockIndex]  + " tradedPrice: "+  tradedPrice + " " + " ( " + sumTradedPrice + ") ");
+				sumTradedPrice += tradedPrice;
+			}
 			
 			if(buySellIndicator == BuySellIndicator.BUY) {
 				stockExchange.buyStock(setOfSymbols[stockIndex], 1, tradedPrice);
@@ -129,12 +138,12 @@ public class StockExchangeSimulator {
 			}
 		}
 		
-		final String stockSymbol = "POP";
+		
 		System.out.println("**************************** REPORT *****************************");
 		System.out.println("Current Time is : " + dt1.format(new Date()));
 		System.out.println(String.format("Dividend Yield : %5.2f", stockExchange.calculateDividendYield(stockSymbol, 20)));
 		System.out.println(String.format("P/E Ratio : %5.2f",  stockExchange.priceOverDividendRatio(stockSymbol, 20)));
-		System.out.println(String.format("Volume Weighted Stock Price based on trades in past 15 minutes : %5.2f", stockExchange.calculateVolumeWeightedStockPrice(stockSymbol, 2)));
+		System.out.println(String.format("Volume Weighted Stock Price based on trades in past 15 minutes : %5.2f", stockExchange.calculateVolumeWeightedStockPrice(stockSymbol, 15)));
 		System.out.println("GBCE All Share Index : " + stockExchange.calculateAllShareIndex());
 		System.out.println("*****************************************************************");
 	}

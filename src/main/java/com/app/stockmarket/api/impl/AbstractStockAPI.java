@@ -3,6 +3,7 @@
  */
 package com.app.stockmarket.api.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -33,8 +34,10 @@ public abstract class AbstractStockAPI implements IStockAPI {
 
 		double dividend = stock.getLastDividend();
 
+		System.out.println("P/E   =" + price + "/" + dividend);
+		
 		if (price != 0.0) {
-			return dividend / price;
+			return price / dividend;
 		}
 
 		return 0;
@@ -46,6 +49,10 @@ public abstract class AbstractStockAPI implements IStockAPI {
 		double volumeWeightedStockPrice = 0.0;
 
 		Date currTime = new Date();
+		
+		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		System.out.println("Current Time is : " + dt1.format(new Date()));
+		
 		List<TradeTransaction> records = stockDataService.getTransactionRecordsByDuration(stockSymbol, currTime,
 				minutes);
 
@@ -63,6 +70,8 @@ public abstract class AbstractStockAPI implements IStockAPI {
 
 		}
 
+		System.out.println("Volume Weighted Stock Price   = Cumulative Price in last 15 min / Sum Od Qty ");
+		System.out.println("                              = "+ cumPrice + " / " + totalQty);
 		if (totalQty != 0) {
 			volumeWeightedStockPrice = cumPrice / totalQty;
 		}
@@ -82,8 +91,6 @@ public abstract class AbstractStockAPI implements IStockAPI {
 		
 		double cumPrice = 0.0;
 
-		int totalQty = 0;
-
 		for (TradeTransaction trade : records) {
 			double price = trade.getTradedPrice();
 
@@ -92,6 +99,9 @@ public abstract class AbstractStockAPI implements IStockAPI {
 
 		geometricMean = Math.pow(cumPrice, 1.0 / size);
 		geometricMean = Math.round(geometricMean);
+		
+		System.out.println("Geometric mean   = nth root of Cumulative Price");
+		System.out.println("                 = "+ cumPrice + "^  1.0 / " + size);
 		
 		return geometricMean;
 

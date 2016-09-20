@@ -26,6 +26,7 @@ public class CommonStockAPI extends AbstractStockAPI {
 		
 		double dividendYield = 0.0;
 
+		System.out.println("dividendYield  =" + stock.getLastDividend() + "/" + price);
 		if (price != 0.0) {
 			dividendYield = stock.getLastDividend() / price;
 		}
