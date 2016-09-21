@@ -3,6 +3,8 @@
  */
 package com.app.stockmarket;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -56,8 +58,7 @@ public abstract class AbstractStockExchange implements StockExchangeAPI {
 		if(tradeService == null)
 			throw new UnsupportedOperationException("Trade Service is not configured");
 		
-		Calendar calendar = Calendar.getInstance(getClientLocale());
-		Date date = calendar.getTime();
+		Date date = Calendar.getInstance().getTime();
 		
 		return tradeService.tradeStockInMarket(stockSymbol, quantity, BuySellIndicator.BUY, price, date);
 	}
@@ -74,7 +75,7 @@ public abstract class AbstractStockExchange implements StockExchangeAPI {
 		if(tradeService == null)
 			throw new UnsupportedOperationException("Trade Service is not configured");
 		
-		Calendar calendar = Calendar.getInstance(getClientLocale());
+		Calendar calendar = Calendar.getInstance();
 		Date date = calendar.getTime();
 		
 		return tradeService.tradeStockInMarket(stockSymbol, quantity, BuySellIndicator.SELL, price, date);

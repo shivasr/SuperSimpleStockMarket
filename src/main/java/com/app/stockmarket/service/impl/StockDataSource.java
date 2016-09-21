@@ -3,14 +3,14 @@
  */
 package com.app.stockmarket.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import com.app.stockmarket.domain.Stock;
 import com.app.stockmarket.domain.TradeTransaction;
@@ -18,7 +18,11 @@ import com.app.stockmarket.exception.InvalidStockException;
 import com.app.stockmarket.service.IStockDataService;
 
 /**
- * @author sramanna
+ * Data Source for the stocks. 
+ * 
+ * This class is responsible for Create / Update of the stock data
+ * 
+ * @author Shivakumar Ramannavar
  *
  */
 public class StockDataSource implements IStockDataService {
@@ -132,14 +136,23 @@ public class StockDataSource implements IStockDataService {
 	public List<TradeTransaction> getTransactionRecordsByDuration(String stockSymbol, Date currentTime, int minutes) {
 		List<TradeTransaction> transactionList = new ArrayList<TradeTransaction>();
 
+		Date now = currentTime;
+		
+		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		Iterator<TradeTransaction> tradeIterator = tradeTransactions.descendingIterator();
-
-		long cuttOffMilliSeconds = minutes * 60 * 1000;
+		
+		Calendar prev = Calendar.getInstance();
+		prev.setTime(now);
+				
+		prev.add(Calendar.MINUTE, - minutes);
+		prev.add(Calendar.SECOND, -1);
+		
 		while (tradeIterator.hasNext()) {
 			TradeTransaction tradeTransaction = tradeIterator.next();
-			long diff = (currentTime.getTime() - tradeIterator.next().getTimestamp().getTime());
-
-			if (diff <= cuttOffMilliSeconds && stockSymbol.equals(tradeTransaction.getStockSymbol())) {
+			
+			if (tradeTransaction.getTimestamp().after(prev.getTime()) 
+					&& stockSymbol.equals(tradeTransaction.getStockSymbol())) {
+				System.out.println(tradeTransaction);
 				transactionList.add(tradeTransaction);
 			}
 		}
@@ -156,4 +169,13 @@ public class StockDataSource implements IStockDataService {
 
 		return transactionList;
 	}
+	
+	 private Date trim(Date date) {
+
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.setTime(date);
+	        calendar.set(Calendar.MINUTE, 0);
+	        calendar.set(Calendar.HOUR, 0);
+	        return calendar.getTime();
+	    }
 }

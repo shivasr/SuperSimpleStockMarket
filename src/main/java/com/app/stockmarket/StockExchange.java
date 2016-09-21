@@ -66,6 +66,6 @@ public class StockExchange extends AbstractStockExchange {
 
 	@Override
 	protected Locale getClientLocale() {
-		return Locale.UK;
+		return Locale.US;
 	}
 }

@@ -38,7 +38,9 @@ public class PreferredStockAPI extends AbstractStockAPI {
 		
 		Logger.logDebugMessage("Fixed DividendYield  = Fixed Dividend  * Par Value / Price");
 		Logger.logDebugMessage("                     = " + stock.getFixedDividendPercentage() + " %  * " + stock.getParValue() + " / " + price);
-		double fixedDividendParValue = (stock.getParValue() * stock.getFixedDividendPercentage() / 100);
+		Logger.logDebugMessage("                     = " + stock.getFixedDividendPercentage() / 100.0 +  " * " + stock.getParValue() + "/" + price);
+		double fixedDividendParValue 				 = (stock.getFixedDividendPercentage() / 100.0) * stock.getParValue();
+		Logger.logDebugMessage("                     = " + fixedDividendParValue + " / " + price);
 
 		if (price != 0.0) {
 			dividendYield = fixedDividendParValue / price;

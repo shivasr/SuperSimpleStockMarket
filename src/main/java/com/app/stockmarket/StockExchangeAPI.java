@@ -10,8 +10,9 @@ import com.app.stockmarket.domain.Stock;
 import com.app.stockmarket.exception.InvalidStockException;
 
 /**
- * Interface which defines
- * @author sramanna
+ * Interface which defines Stock Exchange API
+ * 
+ * @author Shivakumar Ramannavar
  *
  */
 public interface StockExchangeAPI {

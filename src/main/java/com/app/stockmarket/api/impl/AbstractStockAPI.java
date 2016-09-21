@@ -4,6 +4,7 @@
 package com.app.stockmarket.api.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,8 +39,7 @@ public abstract class AbstractStockAPI implements IStockAPI {
 		Logger.logDebugMessage("P/E   = Stock Price / Dividend ");
 		Logger.logDebugMessage("      = " + price + "/" + dividend);
 		
-		if (price != 0.0) {
-			
+		if (dividend != 0.0) {
 			final double pbyE = price / dividend;
 			Logger.logDebugMessage("      = " + pbyE + "\n");
 			return pbyE;
@@ -53,7 +53,7 @@ public abstract class AbstractStockAPI implements IStockAPI {
 
 		double volumeWeightedStockPrice = 0.0;
 
-		Date currTime = new Date();
+		Date currTime = Calendar.getInstance().getTime();
 		
 		SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		Logger.logDebugMessage("Current Time is : " + dt1.format(new Date()));
@@ -75,7 +75,8 @@ public abstract class AbstractStockAPI implements IStockAPI {
 
 		}
 
-		Logger.logDebugMessage("Volume Weighted Stock Price   = Cumulative Price in last 15 min / Sum Od Qty ");
+		Logger.logDebugMessage("Volume Weighted Stock Price   = Cumulative Price in last 15 min / Sum Of Qty ");
+		Logger.logDebugMessage("                              = "+ cumPrice + " / " + totalQty);
 		Logger.logDebugMessage("                              = "+ cumPrice + " / " + totalQty);
 		if (totalQty != 0) {
 			volumeWeightedStockPrice = cumPrice / totalQty;

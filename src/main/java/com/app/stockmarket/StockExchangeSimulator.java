@@ -114,8 +114,12 @@ public class StockExchangeSimulator {
 
 
 		double sumTradedPrice = 0.0;
+		int sumQty = 0;
+		
+		int simulationTimeInMinutes = 2;
+		int diffForCalculation = 1;
 
-		for (int i = 0; i < 80; i++) {
+		for (int i = 0; i < simulationTimeInMinutes * 4; i++) {
 			final double random = Math.random();
 
 			long randomPercentage = Math.round(random * 100);
@@ -133,18 +137,24 @@ public class StockExchangeSimulator {
 			
 			BuySellIndicator buySellIndicator = BuySellIndicator.values()[buyIndicatorIndex];
 
-			if (i >= 20 && stockSymbol.equals(setOfSymbols[stockIndex])) {
-				sumTradedPrice += tradedPrice;
-				Logger.logDebugMessage(setOfSymbols[stockIndex] + " tradedPrice: " + tradedPrice + "() " + " ( "
+			int quantity = index;
+			
+			quantity = (quantity > 0)? quantity : 1; 
+			
+			if (i >= (diffForCalculation * 4) && stockSymbol.equals(setOfSymbols[stockIndex])) {
+				sumTradedPrice += (tradedPrice * quantity);
+				sumQty += quantity;
+				
+				Logger.logDebugMessage(setOfSymbols[stockIndex] + " Traded price: " + tradedPrice + " ( Total Price as of now: "
 						+ sumTradedPrice + ") ");
 			}
 
 			if (buySellIndicator == BuySellIndicator.BUY) {
-				Logger.logDebugMessage("Purchase request raised for " + setOfSymbols[stockIndex] + " for $" + tradedPrice + "(" + percentageDiff[priceChangeIndex] + "% change)");
-				stockExchange.buyStock(setOfSymbols[stockIndex], 1, tradedPrice);
+				Logger.logDebugMessage("Purchase request raised for " + setOfSymbols[stockIndex] + "(Qty: " +quantity +") for $" + tradedPrice + "(" + percentageDiff[priceChangeIndex] + "% change)");
+				stockExchange.buyStock(setOfSymbols[stockIndex], quantity, tradedPrice);
 			} else {
-				Logger.logDebugMessage("Sell request raised for " + setOfSymbols[stockIndex] + " for $" + tradedPrice + "(" + percentageDiff[priceChangeIndex] + "% change)");
-				stockExchange.sellStock(setOfSymbols[stockIndex], 1, tradedPrice);
+				Logger.logDebugMessage("Sell request raised for " + setOfSymbols[stockIndex] +  "(Qty: " +quantity +") for $" + tradedPrice + "(" + percentageDiff[priceChangeIndex] + "% change)");
+				stockExchange.sellStock(setOfSymbols[stockIndex], quantity, tradedPrice);
 			}
 			Logger.logDebugMessage("----------------------------------------------------------------------------");
 			try {
@@ -163,23 +173,10 @@ public class StockExchangeSimulator {
 		Logger.logDebugMessage(
 				String.format("P/E Ratio : %5.2f", stockExchange.priceOverDividendRatio(stockSymbol, 20)));
 		Logger.logDebugMessage(String.format("Volume Weighted Stock Price based on trades in past 15 minutes : %5.2f",
-				stockExchange.calculateVolumeWeightedStockPrice(stockSymbol, 15)));
+				stockExchange.calculateVolumeWeightedStockPrice(stockSymbol, diffForCalculation)));
 		Logger.logDebugMessage("GBCE All Share Index : " + stockExchange.calculateAllShareIndex());
 		Logger.logDebugMessage("*****************************************************************");
 		
-		stockSymbol = "GIN";
-		
-		Logger.logDebugMessage(
-				"**************************** REPORT for Preferred Stock " + stockSymbol + "*****************************");
-		Logger.logDebugMessage("Current Time is : " + dt1.format(new Date()));
-		Logger.logDebugMessage(
-				String.format("Dividend Yield : %5.2f", stockExchange.calculateDividendYield(stockSymbol, 20)));
-		Logger.logDebugMessage(
-				String.format("P/E Ratio : %5.2f", stockExchange.priceOverDividendRatio(stockSymbol, 20)));
-		Logger.logDebugMessage(String.format("Volume Weighted Stock Price based on trades in past 15 minutes : %5.2f",
-				stockExchange.calculateVolumeWeightedStockPrice(stockSymbol, 15)));
-		Logger.logDebugMessage("GBCE All Share Index : " + stockExchange.calculateAllShareIndex());
-		Logger.logDebugMessage("*****************************************************************");
 	}
 
 }

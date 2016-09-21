@@ -80,31 +80,11 @@ public class StockDataSourceTest {
 			stock.setCurrency(Currency.USD);
 			stockDataSource.saveStockData(stock);
 			
-			stock = new CommonStock();
-			stock.setSymbol("POP");
-			stock.setParValue(100);
-			stock.setCurrency(Currency.USD);
-			stockDataSource.saveStockData(stock);
-			
-			stock = new CommonStock();
-			stock.setSymbol("ALE");
-			stock.setParValue(60);
-			stock.setCurrency(Currency.USD);
-			stockDataSource.saveStockData(stock);
-			
 			stock = new FixedDividendStock();
 			stock.setSymbol("GIN");
 			stock.setParValue(100);
 			stock.setCurrency(Currency.USD);
 			stockDataSource.saveStockData(stock);
-			
-			stock = new CommonStock();
-			stock.setSymbol("JOE");
-			stock.setParValue(60);
-			stock.setCurrency(Currency.USD);
-			stockDataSource.saveStockData(stock);
-			
-			
 		} catch (InvalidStockException e) {
 			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
@@ -121,7 +101,6 @@ public class StockDataSourceTest {
 			stock = stockDataSource.getStockData("TEA");
 			assertTrue("Unexpected Data for TEA", "TEA".equals(stock.getSymbol()));
 			
-			
 			stock = stockDataSource.getStockData("GIN");
 			assertTrue("Unexpected Data for GIN, Symbol was : " + stock.getSymbol(), "GIN".equals(stock.getSymbol()));
 			assertTrue("Unexpected Data for GIN, Stock Type was : " + stock.getStockType().toString(), "PREFERRED".equals(stock.getStockType().toString()));
@@ -131,8 +110,6 @@ public class StockDataSourceTest {
 			Logger.logDebugMessage("Message : " + e.getMessage());
 			assertNull(e.getErrorCode().toString(), e);
 		}
-		
-		
 	}
 
 	/**
@@ -143,22 +120,6 @@ public class StockDataSourceTest {
 		try {
 			
 			TradeTransaction tradeTransaction = new TradeTransaction();
-			tradeTransaction.setStockSymbol("TEA");
-			tradeTransaction.setBuySellIndicator(BuySellIndicator.BUY);
-			tradeTransaction.setQuantity(1);
-			tradeTransaction.setTimestamp(new Date());
-			tradeTransaction.setTradedPrice(10.00);
-			stockDataSource.recordTradeTransation(tradeTransaction);
-			
-			tradeTransaction = new TradeTransaction();
-			tradeTransaction.setStockSymbol("TEA");
-			tradeTransaction.setBuySellIndicator(BuySellIndicator.SELL);
-			tradeTransaction.setQuantity(1);
-			tradeTransaction.setTimestamp(new Date());
-			tradeTransaction.setTradedPrice(10.00);
-			stockDataSource.recordTradeTransation(tradeTransaction);
-			
-			tradeTransaction = new TradeTransaction();
 			tradeTransaction.setStockSymbol("TEA");
 			tradeTransaction.setBuySellIndicator(BuySellIndicator.BUY);
 			tradeTransaction.setQuantity(1);
